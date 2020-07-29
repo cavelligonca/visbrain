@@ -148,20 +148,6 @@ class ReadSleepData(object):
             warn("The number of channels must be " + str(nchan) + ". Default "
                  "channel names will be used instead.")
             channels = ['chan' + str(k) for k in range(nchan)]
-        # Clean channel names :
-        patterns = ['eeg', 'EEG', 'ref']
-        chanc = []
-        for c in channels:
-            # Remove informations after . :
-            c = c.split('.')[0]
-            c = c.split('-')[0]
-            # Exclude patterns :
-            for i in patterns:
-                c = c.replace(i, '')
-            # Remove space :
-            c = c.replace(' ', '')
-            c = c.strip()
-            chanc.append(c)
 
         # ---------- STAGE ORDER ----------
         # href checking :
@@ -217,7 +203,7 @@ class ReadSleepData(object):
         self._data = vispy_array(data)
         self._hypno = vispy_array(hypno)
         self._time = vispy_array(time)
-        self._channels = chanc
+        self._channels = channels
         self._href = href
         self._hconv = conv
         PROFILER("Check data", level=1)
